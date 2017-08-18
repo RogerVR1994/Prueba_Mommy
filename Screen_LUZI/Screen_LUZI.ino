@@ -129,7 +129,7 @@ unsigned long testText() {
 }
 
 void llamado(String data){
-  Wire.beginTransmission(8); /
+  Wire.beginTransmission(8); 
   Wire.write(data);          
   Wire.endTransmission();    
   delay(500);
