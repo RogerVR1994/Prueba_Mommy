@@ -128,7 +128,7 @@ unsigned long testText() {
   tft.println("Contracciones");
 }
 
-void llamado(String data){
+void llamado(char data){
   Wire.beginTransmission(8); 
   Wire.write(data);          
   Wire.endTransmission();    
