@@ -67,7 +67,7 @@ void loop(void) {
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
      Serial.print("X = "); Serial.print(p.x);
      Serial.print("\tY = "); Serial.print(p.y);
-     Serial.print("\tPressure = "); llamado(p.z);
+     Serial.print("\tPressure = "); Serial.println(p.z);
      if (p.y>831){
       llamado("Ritmo Cardiaco");
         //testText();
