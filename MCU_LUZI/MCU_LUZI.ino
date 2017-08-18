@@ -7,6 +7,9 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <SWTFT.h> // Hardware-specific library
 #include <TouchScreen.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial Screen(10, 11);
 
 // These are the pins for the shield!
 #define YP A1  // must be an analog pin, use "An" notation!
@@ -44,6 +47,7 @@ uint8_t rotation=3;
 
 void setup(void) {
   Serial.begin(9600);
+  Screen.begin(9600);
   tft.reset();
   uint16_t identifier = tft.readID();
   tft.begin(identifier);
@@ -63,6 +67,7 @@ void loop(void) {
      Serial.print("X = "); Serial.print(p.x);
      Serial.print("\tY = "); Serial.print(p.y);
      Serial.print("\tPressure = "); Serial.println(p.z);
+     Screen.println("hola");
      if (p.y>831){
       Serial.println("Ritmo Cardiaco");
         //testText();
