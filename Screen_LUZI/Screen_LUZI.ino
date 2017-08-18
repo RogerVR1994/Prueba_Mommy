@@ -7,6 +7,8 @@
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <SWTFT.h> // Hardware-specific library
 #include <TouchScreen.h>
+#include <Wire.h>
+
 
 // These are the pins for the shield!
 #define YP A1  // must be an analog pin, use "An" notation!
@@ -43,6 +45,7 @@ SWTFT tft;
 uint8_t rotation=3;
 
 void setup(void) {
+  Wire.begin();
   Serial.begin(9600);
   tft.reset();
   uint16_t identifier = tft.readID();
@@ -53,6 +56,8 @@ void setup(void) {
   testText();
 }
 
+byte x = 0;
+
 void loop(void) {
   // a point object holds x y and z coordinates
   TSPoint p = ts.getPoint();
@@ -62,9 +67,9 @@ void loop(void) {
   if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
      Serial.print("X = "); Serial.print(p.x);
      Serial.print("\tY = "); Serial.print(p.y);
-     Serial.print("\tPressure = "); Serial.println(p.z);
+     Serial.print("\tPressure = "); llamado(p.z);
      if (p.y>831){
-      Serial.println("Ritmo Cardiaco");
+      llamado("Ritmo Cardiaco");
         //testText();
         //delay(2000);
         //tft.fillScreen(WHITE);
@@ -72,27 +77,27 @@ void loop(void) {
         delay(1000);
      }
      if (p.y>701 && p.y<830){
-      Serial.println("Frecuencia Respiratoria");
+      llamado("Frecuencia Respiratoria");
       delay(1000);
      }
      if (p.y>601 && p.y<700){
-      Serial.println("Frecuencia Cardiaca Fetal");
+      llamado("Frecuencia Cardiaca Fetal");
       delay(1000);
      }
      if (p.y>500 && p.y<600){
-      Serial.println("Temperatura");
+      llamado("Temperatura");
       delay(1000);
      }
      if (p.y>400 && p.y<499){
-      Serial.println("Presion Arterial");
+      llamado("Presion Arterial");
       delay(1000);
      }
      if (p.y>200 && p.y<390){
-      Serial.println("Glusosa");
+      llamado("Glusosa");
       delay(1000);
      }
      if (p.y<200){
-      Serial.println("Contracciones");
+      llamado("Contracciones");
       delay(1000);
      }
    }
@@ -123,3 +128,9 @@ unsigned long testText() {
   tft.println("Contracciones");
 }
 
+void llamado(String data){
+  Wire.beginTransmission(8); /
+  Wire.write(data);          
+  Wire.endTransmission();    
+  delay(500);
+}
