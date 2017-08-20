@@ -36,6 +36,27 @@ void setup(){
   delay(1000); 
   Serial.println("QUC20 inicializado a 115200"); //Impresión para Debug (Inicio del código)
   sessionsInit(); //Inicio de sesión en la red telefónica
+
+  char c;
+  imei;
+  Uc20.println(" AT+GSN");     // Send request
+  int count = 5;                       // Number of 100ms intervals before 
+                                       // assuming there is no more data
+  while(count-- != 0) {                // Loop until count = 0
+
+    delay(100);                        // Delay 100ms
+
+    while (Uc20.available() > 0){  // If there is data, read it and reset
+       c = (char)Uc20.read();      // the counter, otherwise go try again
+       imei += c;
+       count = 5;       
+    }
+  }
+  imei.remove(0, 9);
+  imei.remove(15, 8);
+  Serial.println(imei);
+  Serial.println(imei.length());
+
   Wire.beginTransmission(0x27); //iniciar comunicación con pantalla LCD
   error = Wire.endTransmission(); //Terminar comunicación con LCD si no se detecta una pantalla
 
@@ -147,12 +168,32 @@ void sessionsInit() {
   //Activar conexion 3G
   sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
   sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
-  sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
-  //sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100); //Se colocan los datos de la tarjeta SIM
+  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
+  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100);
   sendATCommand("AT+QIACT=1", 100);
 }
 
-//Funcion de envio de comandos AT a UC20
+
+void sessionsClose() {
+  sendATCommand("AT+QGPSEND", 100); //Termina sesion de GPS
+  sendATCommand("AT+QIDEACT=1", 100); //Termina sesion de 3G
+  delay(1000);
+}
+
+void restartUC() {
+  sessionsClose();
+  sendATCommand("AT+QGPSEND", 100);
+  sendATCommand("AT+QIDEACT=1", 100);
+  delay(1000);
+}
+
+void powerOff() {
+  sessionsClose();
+  sendATCommand("AT+QPOWD", 300);
+}
+
+
+//Funcion de envio de comandos AT
 String sendATCommand(String command, int ms) {
   char c;
   String res;
@@ -223,16 +264,14 @@ String getBodyReadResponse(String msg) {
   return msg.substring(startW + 1, endsW);
 }
 
-//Función para envío de datos por método POST a una dirección
+
+//Funcion de envio de datos a traves de 3G
 void sendMsg() {
   String act;
-  String res, atcomm; //variable res representa los datos que se enviarán al servidor. Deben tener formato raw (var1=n&var2=n2....varn=nn)
-  res = "temperatura=";
-  res += "35.5";
-  res += "&presion_dis=70&presion_sis=120&pulso=";
-  res+="70.0";
-  Serial.println(res); //imprimir en serial el valor de la cadena a enviar (Comentar esta cadena cuando ya no se necesita hacer debug)
-  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
+  String res, atcomm;
+  res = "Latitud=24.345&Longitud=12.343&Fix=Ant&IMEI=";
+  res += imei;
+  sendATCommandWithResponse("AT+QHTTPURL=77,77", "http://technomadic.westcentralus.cloudapp.azure.com/E-health/PHP/add_data.php");
   delay(300);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
@@ -240,13 +279,13 @@ void sendMsg() {
   atcomm += ",80,80";
   Serial.println(atcomm);
   sendATCommandWithResponse(atcomm, res);
-  delay(300);
+  delay(30);
   sendATCommand("AT+QIGETERROR", 100);
-  delay(200);
+  delay(20);
   Serial.println(sendATCommand("AT+QHTTPREAD=80", 100));
-  delay(300);
+  delay(30);
   sendATCommand("AT+QHTTPREAD=30",100);
-  delay(300);
+  delay(30);
 }
 
 //Funcion para enviar comandos que necesiten argumentos una vez que son enviados
