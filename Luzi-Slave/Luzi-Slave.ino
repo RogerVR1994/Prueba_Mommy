@@ -35,7 +35,7 @@ void receiveEvent(int howmany){
     Serial.println(c);
   }
   receive_data = Wire.read();
-  Serial.println(x);
+  Serial.println(receive_data);
 }
 
 void sessionsInit() {
