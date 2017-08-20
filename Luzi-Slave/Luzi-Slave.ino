@@ -1,5 +1,7 @@
 #include <SoftwareSerial.h> // Librería para comunicación con UC20
 #include <Wire.h> //Librer[ia para comunicaci[on de I2C]
+#include "Adafruit_TMP007.h" //Librería para sensor de temperatura
+
 
 SoftwareSerial Uc20(2, 3);
 
@@ -7,9 +9,13 @@ int receive_data;
 float real_temp;
 int pulso;
 Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
+int z;
+int pulso;
 
 
 void setup(){
+  int error;
+  pinMode(A2, INPUT);
   pinMode(5, OUTPUT);
   digitalWrite(5, LOW);
   Serial.begin(9600);
@@ -39,6 +45,12 @@ void loop(){
         break;
       case 2:
         Serial.println("Tomar presion arterial");
+        for (i = 0 ; i<10; i++){
+          int map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
+          z+=map_pulso;
+          pulso = z/10;
+          delay(100);
+        }
         receive_data=0;
         break;
       case 3:
