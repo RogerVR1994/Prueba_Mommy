@@ -46,7 +46,6 @@ void loop(){
         receive_data=0;
         dato= String(real_temp);
         dato.toInt();
-        dato=0;
         break;
       case 2:
         Serial.println("Tomar presion arterial");
@@ -63,7 +62,6 @@ void loop(){
         z=0;
         dato.toInt();
         receive_data=0;
-        dato-0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
