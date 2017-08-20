@@ -24,6 +24,7 @@ unsigned long currentMillis = 0;
 int totalSend = 0;
 boolean uConfig = false;
 int gnAct = 0;
+String post_message="";
 
 void sendMsg();
 
@@ -72,9 +73,11 @@ void loop(){
     }
     delay(1000);
     for (int status=0; status<2; status++){
+
       sendMsg();
       delay(1000);
     }
+    post_message="";
   }
 }
 
@@ -107,6 +110,8 @@ void requestEvent() {
         Serial.println(glucosa);
         dato = String(glucosa);
         sendMsg();
+        dato +="hola";
+        Serial.println(dato);
         receive_data=0;
         break;
       case 4:
