@@ -45,7 +45,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         real_temp_def= String(real_temp);
-        Wire.send(real_temp);
+        Wire.onRequest(requestEvent);
         break;
       case 2:
         Serial.println("Tomar presion arterial");
