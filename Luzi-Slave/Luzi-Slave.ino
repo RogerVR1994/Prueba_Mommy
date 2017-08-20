@@ -65,7 +65,7 @@ void loop(){
         receive_data=0;
         dato= String(real_temp);
         post_message+"temperatura=";
-        post_message+= temperatura;
+        post_message+= real_temp;
         break;
       default:
         Serial.println("En espera");
@@ -73,7 +73,7 @@ void loop(){
     delay(1000);
     for (int status=0; status<2; status++){
 
-      sendMsg();
+      sendMsg(post_message);
       delay(1000);
     }
     Serial.println(post_message);
@@ -103,6 +103,8 @@ void requestEvent() {
         dato+=String(frecuencia_respiratoria);
         post_message="frecuencia_respiratoria=";
         post_message += frecuencia_respiratoria;
+        post_message="&pulso=";
+        post_message += pulso;
         
         receive_data=0;
         break;
@@ -286,7 +288,7 @@ String parseCSV(String csv, int field) {
 }
 
 //Funcion de envio de datos a traves de 3G
-void sendMsg() {
+void sendMsg(String mensaje) {
   String act;
   String res, atcomm;
   res = "temperatura=36.9&presion_dis=0&presion_sis=0&pulso=71";
@@ -294,10 +296,10 @@ void sendMsg() {
   delay(30);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
-  atcomm += res.length();
+  atcomm += mensaje.length();
   atcomm += ",80,80";
   Serial.println(atcomm);
-  sendATCommandWithResponse(atcomm, res);
+  sendATCommandWithResponse(atcomm, mensaje);
   delay(30);
   sendATCommand("AT+QIGETERROR", 100);
   delay(20);
