@@ -303,7 +303,7 @@ void loop()
             Wire.beginTransmission(8);
             Wire.write(xbyte);
             Wire.endTransmission();
-            Wire.requestFrom(8, int(dato));
+            Wire.requestFrom(8, dato.toInt());
             dato ="";
             while (Wire.available()) { // slave may send less than requested
               char c = Wire.read(); // receive a byte as character
@@ -372,7 +372,7 @@ void loop()
             xbyte=6;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.ednTransmission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);

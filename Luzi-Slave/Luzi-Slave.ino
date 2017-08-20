@@ -88,6 +88,7 @@ void requestEvent() {
         Serial.println(dato);
         z=0;
         size_i2c=sizeof(dato);
+        Serial.println(size_i2c);
         receive_data=0;
   }
   char data[6];
