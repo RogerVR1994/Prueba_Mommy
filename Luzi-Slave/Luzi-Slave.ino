@@ -64,9 +64,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        for (int conexion_status =0; conexion_status<2; conexion_status++){
-          sendMsg();
-        }
+        
         break;
       default:
         Serial.println("En espera");
@@ -104,7 +102,7 @@ void requestEvent() {
         dato+=String(frecuencia_respiratoria);
         post_message="frecuencia_respiratoria=";
         post_message += frecuencia_respiratoria;
-        sendMsg();
+        
         receive_data=0;
         break;
       case 3:
@@ -112,7 +110,7 @@ void requestEvent() {
         Serial.println("glucosa");
         Serial.println(glucosa);
         dato = String(glucosa);
-        sendMsg();
+        
         post_message="glucosa=";
         post_message+=glucosa;
         Serial.println(dato);
@@ -130,20 +128,20 @@ void requestEvent() {
         dato += String(presion_dis);
         Serial.println(sizeof(dato));
 
-        sendMsg();
+        s
         receive_data=0;
         break;
       case 5:
         contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
-        sendMsg();
+        
         break;
       case 6:
         frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
-        sendMsg();
+        
         break;
       default:
         Serial.println("algo");// do something
