@@ -11,7 +11,7 @@ int pulso;
 Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
 int z;
 int map_pulso;
-
+String dato;
 
 
 void setup(){
@@ -82,9 +82,9 @@ void loop(){
 }
 
 void requestEvent() {
-  String hola="hola ";
-  char dato[4];
-  Wire.write(hola.toCharArray(dato, 4)); // respond with message of 6 bytes
+  char data[4];
+  dato.toCharArray(data, 4)
+  Wire.write(hola.toCharArray(data, 4)); // respond with message of 6 bytes
   // as expected by master
 }
 
