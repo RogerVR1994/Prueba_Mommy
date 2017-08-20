@@ -262,7 +262,7 @@ void loop()
             xbyte=1;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -286,7 +286,7 @@ void loop()
             xbyte=2;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -303,7 +303,7 @@ void loop()
             xbyte=3;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -320,7 +320,7 @@ void loop()
             xbyte=4;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -337,7 +337,7 @@ void loop()
             xbyte=5;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransission();
+            Wire.endTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -354,7 +354,7 @@ void loop()
             xbyte=6;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.ednTransission();
+            Wire.ednTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
