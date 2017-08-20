@@ -45,7 +45,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        //dato.toInt();
+        dato="";
         break;
       case 2:
         Serial.println("Tomar presion arterial");
@@ -54,14 +54,14 @@ void loop(){
           z+=map_pulso;
           delay(100);
         }
-        // pulso = z/10;
-        // Serial.println(pulso);
-        // dato=String(pulso);
-        // Serial.println("hola");
-        // Serial.println(dato);
-        // z=0;
-        // dato.toInt();
-        // receive_data=0;
+        pulso = z/10;
+        Serial.println(pulso);
+        dato=String(pulso);
+        Serial.println("hola");
+        Serial.println(dato);
+        z=0;
+        dato="";
+        receive_data=0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
@@ -89,9 +89,8 @@ void requestEvent() {
   char data[4];
   dato.toCharArray(data, 6);
   Serial.println(data);
-  Wire.write(dato); // respond with message of 6 bytes
+  Wire.write(data); // respond with message of 6 bytes
   // as expected by master
-  char data[4]; 
 }
 
 void receiveEvent(int howmany){
