@@ -300,7 +300,6 @@ void loop()
               dato +=c;
             }
             myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
-            myGLCD.print("Boton 2", CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);

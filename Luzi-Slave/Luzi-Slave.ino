@@ -47,20 +47,21 @@ void loop(){
         dato= String(real_temp);
         break;
       case 2:
-        Serial.println("Tomar presion arterial");
-        for (int i = 0 ; i<10; i++){
-          map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
-          z+=map_pulso;
-          delay(100);
+        for(int cont_i2c = 0; cont_i2c<2; cont++){
+          Serial.println("Tomar presion arterial");
+          for (int i = 0 ; i<10; i++){
+            map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
+            z+=map_pulso;
+            delay(100);
+          }
+          pulso = z/10;
+          Serial.println(pulso);
+          dato=String(pulso);
+          Serial.println("hola");
+          Serial.println(dato);
+          z=0;
         }
-        pulso = z/10;
-        Serial.println(pulso);
-        dato=String(pulso);
-        Serial.println("hola");
-        Serial.println(dato);
-        z=0;
-        
-        receive_data=0;
+          receive_data=0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
