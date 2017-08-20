@@ -64,7 +64,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        post_message+"temperatura=";
+        post_message="temperatura=";
         post_message+= real_temp;
         break;
       default:
@@ -103,7 +103,7 @@ void requestEvent() {
         dato+=String(frecuencia_respiratoria);
         post_message="frecuencia_respiratoria=";
         post_message += frecuencia_respiratoria;
-        post_message="&pulso=";
+        post_message+="&pulso=";
         post_message += pulso;
         
         receive_data=0;
@@ -130,9 +130,9 @@ void requestEvent() {
         dato += "/";
         dato += String(presion_dis);
         Serial.println(sizeof(dato));
-        post_message+"presopn_dis=";
+        post_message="presopn_dis=";
         post_message+= presion_dis;
-        post_message+"&presion_sis=";
+        post_message+="&presion_sis=";
         post_message+= presion_sis;
         
         receive_data=0;
@@ -141,14 +141,14 @@ void requestEvent() {
         contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
-        post_message+"contracciones=";
+        post_message="contracciones=";
         post_message+= contracciones;
         break;
       case 6:
         frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
-        post_message+"frecuencia_fetal=";
+        post_message="frecuencia_fetal=";
         post_message+= frecuencia_fetal;
         break;
       default:
@@ -307,6 +307,7 @@ void sendMsg(String mensaje) {
   delay(30);
   sendATCommand("AT+QHTTPREAD=30",100);
   delay(30);
+  Serial.println(mensaje);
 }
 
 //Funcion para enviar comandos que necesiten argumentos una vez que son enviados
