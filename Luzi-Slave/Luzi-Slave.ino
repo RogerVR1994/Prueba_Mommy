@@ -114,8 +114,8 @@ void requestEvent() {
       default:
         Serial.println("algo");// do something
   }
-  char data[6];
-  dato.toCharArray(data, 6);
+  char data[7];
+  dato.toCharArray(data, 7);
   Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master

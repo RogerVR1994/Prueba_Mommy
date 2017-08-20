@@ -292,7 +292,7 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            Wire.requestFrom(8, 6);
+            Wire.requestFrom(8, 7);
             dato ="";
             while (Wire.available()) { // slave may send less than requested
               char c = Wire.read(); // receive a byte as character
@@ -340,7 +340,7 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            Wire.requestFrom(8, 6);
+            Wire.requestFrom(8, 7);
             dato ="";
             while (Wire.available()) { // slave may send less than requested
               char c = Wire.read(); // receive a byte as character
