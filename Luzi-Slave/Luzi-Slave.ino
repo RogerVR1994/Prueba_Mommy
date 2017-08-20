@@ -70,6 +70,7 @@ void loop(){
       default:
         Serial.println("En espera");
     }
+    sendMsg();
   }
 }
 
