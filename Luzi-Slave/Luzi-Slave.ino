@@ -19,6 +19,14 @@ int contracciones;
 int frecuencia_fetal;
 String dato;
 
+long previousMillis = 0;
+unsigned long currentMillis = 0;
+int totalSend = 0;
+boolean uConfig = false;
+int gnAct = 0;
+
+void sendMsg();
+
 
 void setup(){
   int error;
@@ -28,6 +36,7 @@ void setup(){
   delay(100);
   digitalWrite(5, LOW);
   Serial.begin(9600);
+  Uc20.begin(9600);
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
   Wire.onRequest(requestEvent); // register event
@@ -36,27 +45,6 @@ void setup(){
   delay(1000); 
   Serial.println("QUC20 inicializado a 115200"); //Impresión para Debug (Inicio del código)
   sessionsInit(); //Inicio de sesión en la red telefónica
-
-  char c;
-  imei;
-  Uc20.println(" AT+GSN");     // Send request
-  int count = 5;                       // Number of 100ms intervals before 
-                                       // assuming there is no more data
-  while(count-- != 0) {                // Loop until count = 0
-
-    delay(100);                        // Delay 100ms
-
-    while (Uc20.available() > 0){  // If there is data, read it and reset
-       c = (char)Uc20.read();      // the counter, otherwise go try again
-       imei += c;
-       count = 5;       
-    }
-  }
-  imei.remove(0, 9);
-  imei.remove(15, 8);
-  Serial.println(imei);
-  Serial.println(imei.length());
-
   Wire.beginTransmission(0x27); //iniciar comunicación con pantalla LCD
   error = Wire.endTransmission(); //Terminar comunicación con LCD si no se detecta una pantalla
 
@@ -162,6 +150,7 @@ void receiveEvent(int howmany){
   Serial.println(receive_data);
 }
 
+
 void sessionsInit() {
   //Activar GPS
   sendATCommand("AT+QGPS=1", 100);
@@ -264,15 +253,26 @@ String getBodyReadResponse(String msg) {
   return msg.substring(startW + 1, endsW);
 }
 
+//Funcion para obtener un campo en particular de una cadena csv
+String parseCSV(String csv, int field) {
+  String sField;
+  int fCom, sCom;
+  for (int i = 0; i < field; i++) {
+    fCom = csv.indexOf(',');
+    sCom = csv.indexOf(',', fCom + 1);
+    sField = csv.substring(fCom + 1, sCom);
+    csv.remove(fCom, sField.length());
+  }
+  return sField;
+}
 
 //Funcion de envio de datos a traves de 3G
 void sendMsg() {
   String act;
   String res, atcomm;
-  res = "Latitud=24.345&Longitud=12.343&Fix=Ant&IMEI=";
-  res += imei;
-  sendATCommandWithResponse("AT+QHTTPURL=77,77", "http://technomadic.westcentralus.cloudapp.azure.com/E-health/PHP/add_data.php");
-  delay(300);
+  res = "temperatura=36.9&presion_dis=0&presion_sis=0&pulso=71";
+  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
+  delay(30);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
   atcomm += res.length();
