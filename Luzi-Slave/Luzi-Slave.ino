@@ -91,9 +91,10 @@ void requestEvent() {
         Serial.println(size_i2c);
         receive_data=0;
   }
-  char data[6];
-  char size[size_i2c];
-  dato.toCharArray(data, 6);
+  char size[1];
+  char data[size_i2c];
+  
+  dato.toCharArray(data, size_i2c);
   Serial.println(data);
   //Wire.write(data); // respond with message of 6 bytes
   // as expected by master
