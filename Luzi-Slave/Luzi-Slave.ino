@@ -24,6 +24,8 @@ void setup(){
   int error;
   pinMode(A2, INPUT);
   pinMode(5, OUTPUT);
+  digitalWrite(5, HIGH);
+  delay(100);
   digitalWrite(5, LOW);
   Serial.begin(9600);
   Wire.begin(8);
@@ -230,7 +232,7 @@ void sendMsg() {
   res += "&presion_dis=70&presion_sis=120&pulso=";
   res+="70.0";
   Serial.println(res); //imprimir en serial el valor de la cadena a enviar (Comentar esta cadena cuando ya no se necesita hacer debug)
-  sendATCommandWithResponse("AT+QHTTPURL=79,79", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
+  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
   delay(300);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
