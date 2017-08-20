@@ -2,8 +2,7 @@
 
 void setup() {
   Wire.begin(); 
-  Wire.onReceive(receiveEvent); 
-  Serial.begin(9600);  
+  Serial.begin(9600);  // start serial for output
 }
 
 byte x = 0;
@@ -16,12 +15,13 @@ void loop() {
 
   x++;
   delay(500);
-}
-void receiveEvent(int howMany) {
-  while (1 < Wire.available()) { 
-    char c = Wire.read(); 
-    Serial.print(c);        
+  Wire.requestFrom(8, 5);    // request 6 bytes from slave device #8
+
+  while (Wire.available()) { // slave may send less than requested
+    char c = Wire.read(); // receive a byte as character
+    Serial.print(c);         // print the character
   }
-  int x = Wire.read();    
-  Serial.println(x);         
+
+  delay(500);
+
 }

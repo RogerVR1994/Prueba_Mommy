@@ -3,6 +3,7 @@
 void setup() {
   Wire.begin(8);                
   Wire.onReceive(receiveEvent); 
+  Wire.onRequest(requestEvent); // register event
   Serial.begin(9600);          
 }
 
@@ -15,10 +16,11 @@ void receiveEvent(int howMany) {
     char c = Wire.read(); 
     Serial.print(c);        
   }
-  int x = Wire.read(); 
-  int y=1;   
+  int x = Wire.read();    
   Serial.println(x);         
-  Wire.beginTransmission(0);    
-  Wire.write(y);             
-  Wire.endTransmission();   
+}
+
+void requestEvent() {
+  Wire.write("hola "); // respond with message of 6 bytes
+  // as expected by master
 }
