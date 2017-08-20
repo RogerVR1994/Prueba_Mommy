@@ -125,24 +125,27 @@ String getBodyReadResponse(String msg) {
 //Función para envío de datos por método POST a una dirección
 void sendMsg() {
   String act;
-  String res, atcomm;
-  res = "temperatura=19.59&presion_dis=-99.22&presion_sis=12&pulso=30";
-  res += imei;
-  sendATCommandWithResponse("AT+QHTTPURL=77,77", "http://technomadic.westcentralus.cloudapp.azure.com/E-health/PHP/add_data.php");
+  String res, atcomm; //variable res representa los datos que se enviarán al servidor. Deben tener formato raw (var1=n&var2=n2....varn=nn)
+  res = "temperatura=";
+  res += "35.5";
+  res += "&presion_dis=70&presion_sis=120&pulso=";
+  res+="70.0";
+  Serial.println(res); //imprimir en serial el valor de la cadena a enviar (Comentar esta cadena cuando ya no se necesita hacer debug)
+  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
   delay(300);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
-  atcomm += post2.length();
+  atcomm += res.length();
   atcomm += ",80,80";
   Serial.println(atcomm);
-  sendATCommandWithResponse(atcomm, post2);
-  delay(30);
+  sendATCommandWithResponse(atcomm, res);
+  delay(300);
   sendATCommand("AT+QIGETERROR", 100);
-  delay(20);
+  delay(200);
   Serial.println(sendATCommand("AT+QHTTPREAD=80", 100));
-  delay(30);
+  delay(300);
   sendATCommand("AT+QHTTPREAD=30",100);
-  delay(30);
+  delay(300);
 }
 
 //Funcion para enviar comandos que necesiten argumentos una vez que son enviados

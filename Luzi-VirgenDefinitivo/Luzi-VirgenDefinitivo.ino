@@ -189,21 +189,21 @@ void loop()
         if ((x>=70) && (x<=120))  // Button: 1
         {
           waitForIt(70,20,120,70);
-          updateStr('1');
+          updateStr('Pulso');
           boton= 'A'; 
         }
 
          if ((x>=130) && (x<=180))  // Button: 2
         {
           waitForIt(130,20, 180, 70);
-          updateStr('2');
+          updateStr('Temperatura');
           boton= 'B';
         }
 
          if ((x>=190) && (x<=240))  // Button: 3
         {
           waitForIt(190,20, 240, 70);
-          updateStr('3');
+          updateStr('Presion');
           boton= 'C';
         }
       }
