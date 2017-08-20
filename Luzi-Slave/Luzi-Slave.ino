@@ -45,7 +45,6 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        dato="";
         break;
       case 2:
         Serial.println("Tomar presion arterial");
@@ -60,7 +59,7 @@ void loop(){
         Serial.println("hola");
         Serial.println(dato);
         z=0;
-        dato="";
+        
         receive_data=0;
         break;
       case 3:
@@ -83,6 +82,7 @@ void loop(){
         Serial.println("En espera");
     }
   }
+  dato="";
 }
 
 void requestEvent() {
