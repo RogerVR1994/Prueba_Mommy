@@ -12,9 +12,7 @@ Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
 int z;
 int map_pulso;
 String dato;
-int frecuencia_respiratoria;
-int glucosa;
-char data[];
+
 
 void setup(){
   int error;
@@ -74,9 +72,9 @@ void loop(){
 }
 
 void requestEvent() {
-  switch (receive_data) {
+  switch () {
       case 2:
-        for (int i = 0 ; i<10; i++){
+        /for (int i = 0 ; i<10; i++){
           map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
           z+=map_pulso;
           delay(100);
@@ -87,27 +85,15 @@ void requestEvent() {
         //Serial.println("hola");
         //Serial.println(dato);
         z=0;
-        frecuencia_respiratoria = random(16, 20);
+        int frecuencia_respiratoria = random(16, 20);
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
         receive_data=0;
-        data[3];
-        dato.toCharArray(data, 3);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
         break;
       case 3:
-        glucosa = random(70, 100);
+        int glucosa = random(70, 100);
         dato = String(glucosa);
         receive_data=0;
-        data[2];
-        dato.toCharArray(data, 2);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
         break;
       case 4:
         int presion_dis = random(60, 80);
@@ -116,44 +102,26 @@ void requestEvent() {
         dato += "/";
         dato += String(presion_dis);
         receive_data=0;
-        data[6];
-        dato.toCharArray(data, 6);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
         break;
       break 5:
         int contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
-        data[1];
-        dato.toCharArray(data, 1);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
         break;
       break 6:
         int frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
-        data[3];
-        dato.toCharArray(data, 3);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
         break;
       default:
-        data[6];
-        dato.toCharArray(data, 6);
-        Serial.println(data);
-        Wire.write(data); // respond with message of 6 bytes
-        // as expected by master
-        dato="";
+        // do something
   }
-  
+  char data[6];
+  dato.toCharArray(data, 6);
+  Serial.println(data);
+  Wire.write(data); // respond with message of 6 bytes
+  // as expected by master
+  dato="";
 }
 
 void receiveEvent(int howmany){
