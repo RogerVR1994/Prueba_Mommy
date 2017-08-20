@@ -73,18 +73,18 @@ void loop(){
 
 void requestEvent() {
   if (receive_data==2){
-    Serial.println("Boton 2");
-    Serial.println("Tomar presion arterial");
+    //Serial.println("Boton 2");
+    //Serial.println("Tomar presion arterial");
         for (int i = 0 ; i<10; i++){
           map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
           z+=map_pulso;
           delay(100);
         }
         pulso = z/10;
-        Serial.println(pulso);
+        //Serial.println(pulso);
         dato=String(pulso);
-        Serial.println("hola");
-        Serial.println(dato);
+        //Serial.println("hola");
+        //Serial.println(dato);
         z=0;
         
         receive_data=0;
