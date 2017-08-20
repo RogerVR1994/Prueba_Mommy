@@ -12,6 +12,7 @@ int x, y;
 char stCurrent[20]="";
 int stCurrentLen=0;
 char stLast[20]="";
+String dato;
 
 /////////VARIABLES GLOBALES////////
 char boton;
@@ -267,7 +268,14 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            myGLCD.print("Boton 1", CENTER, 93); //Insertar variable sensada
+            Wire.requestFrom(8, 5);
+            dato ="";
+            while (Wire.available()) { // slave may send less than requested
+              char c = Wire.read(); // receive a byte as character
+              Serial.print(c);         // print the character
+              dato +=c;
+            }
+            myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);

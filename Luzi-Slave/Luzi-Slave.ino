@@ -42,6 +42,7 @@ void loop(){
         real_temp = tmp007.readObjTempC();//Se hace la medición de la temperatura
         Serial.println(real_temp);
         receive_data=0;
+        requestEvent(real_temp);
         break;
       case 2:
         Serial.println("Tomar presion arterial");
@@ -75,6 +76,11 @@ void loop(){
         Serial.println("En espera");
     }
   }
+}
+
+void requestEvent(fString dato) {
+  Wire.write(dato); // respond with message of 6 bytes
+  // as expected by master
 }
 
 void receiveEvent(int howmany){
