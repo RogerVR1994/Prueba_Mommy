@@ -83,7 +83,8 @@ void loop(){
 }
 
 void requestEvent() {
-  Wire.write(dato); // respond with message of 6 bytes
+  String hola="hola ";
+  Wire.write(hola); // respond with message of 6 bytes
   // as expected by master
 }
 
