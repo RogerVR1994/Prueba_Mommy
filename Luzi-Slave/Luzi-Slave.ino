@@ -26,6 +26,9 @@ void loop(){
   if (receive_data==1){
     Serial.println("exito!");
     receive_data=0;
+    for (int count = 0; count<2; count++){
+      sendMsg();
+    }
   }
 }
 
@@ -125,9 +128,9 @@ void sendMsg() {
   String act;
   String res, atcomm; //variable res representa los datos que se enviarán al servidor. Deben tener formato raw (var1=n&var2=n2....varn=nn)
   res = "temperatura=";
-  res += real_temp;
-  res += "&presion_dis=0&presion_sis=0&pulso=";
-  res+=pulso;
+  res += "35";
+  res += "&presion_dis=70&presion_sis=120&pulso=";
+  res+="70";
   Serial.println(res); //imprimir en serial el valor de la cadena a enviar (Comentar esta cadena cuando ya no se necesita hacer debug)
   sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
   delay(300);
