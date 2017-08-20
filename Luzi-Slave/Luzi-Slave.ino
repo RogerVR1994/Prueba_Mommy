@@ -72,9 +72,15 @@ void loop(){
 }
 
 void requestEvent() {
+  int frecuencia_respiratoria;
+  int glucosa;
+  int presion_sis;
+  int presion_dis;
+  int contracciones;
+  int frecuencia_fetal;
   switch (receive_data) {
       case 2:
-        /for (int i = 0 ; i<10; i++){
+        for (int i = 0 ; i<10; i++){
           map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
           z+=map_pulso;
           delay(100);
@@ -85,31 +91,31 @@ void requestEvent() {
         //Serial.println("hola");
         //Serial.println(dato);
         z=0;
-        int frecuencia_respiratoria = random(16, 20);
+        recuencia_respiratoria = random(16, 20);
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
         receive_data=0;
         break;
       case 3:
-        int glucosa = random(70, 100);
+        glucosa = random(70, 100);
         dato = String(glucosa);
         receive_data=0;
         break;
       case 4:
-        int presion_dis = random(60, 80);
-        int presion_sis = random(100, 120);
+        presion_dis = random(60, 80);
+        presion_sis = random(100, 120);
         dato = String(presion_sis);
         dato += "/";
         dato += String(presion_dis);
         receive_data=0;
         break;
       break 5:
-        int contracciones = random(1, 2);
+        contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
         break;
       break 6:
-        int frecuencia_fetal = random(160, 170);
+        frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
         break;
