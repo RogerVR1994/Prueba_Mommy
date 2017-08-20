@@ -292,7 +292,7 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            Wire.requestFrom(8, 6);
+            Wire.requestFrom(8, 3);
             dato ="";
             while (Wire.available()) { // slave may send less than requested
               char c = Wire.read(); // receive a byte as character
@@ -316,7 +316,14 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            myGLCD.print("Boton 3", CENTER, 93); //Insertar variable sensada
+            Wire.requestFrom(8, 2);
+            dato ="";
+            while (Wire.available()) { // slave may send less than requested
+              char c = Wire.read(); // receive a byte as character
+              Serial.print(c);         // print the character
+              dato +=c;
+            }
+            myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);
@@ -333,7 +340,14 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            myGLCD.print("Boton 4", CENTER, 93); //Insertar variable sensada
+            Wire.requestFrom(8, 6);
+            dato ="";
+            while (Wire.available()) { // slave may send less than requested
+              char c = Wire.read(); // receive a byte as character
+              Serial.print(c);         // print the character
+              dato +=c;
+            }
+            myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);
@@ -350,7 +364,14 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            myGLCD.print("Boton 5", CENTER, 93); //Insertar variable sensada
+            Wire.requestFrom(8, 1);
+            dato ="";
+            while (Wire.available()) { // slave may send less than requested
+              char c = Wire.read(); // receive a byte as character
+              Serial.print(c);         // print the character
+              dato +=c;
+            }
+            myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);
@@ -367,7 +388,14 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            myGLCD.print("Boton 6", CENTER, 93); //Insertar variable sensada
+            Wire.requestFrom(8, 3);
+            dato ="";
+            while (Wire.available()) { // slave may send less than requested
+              char c = Wire.read(); // receive a byte as character
+              Serial.print(c);         // print the character
+              dato +=c;
+            }
+            myGLCD.print(dato, CENTER, 93); //Insertar variable sensada
             myGLCD.print("LUZI 2017", CENTER, 119);
             delay (3000);
             myGLCD.setBackColor(0, 0, 255);
