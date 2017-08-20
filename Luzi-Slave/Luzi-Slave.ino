@@ -44,7 +44,8 @@ void setup(){
 void loop(){
   delay(100);
   frecuencia_respiratoria = random(16, 20);
-  Serial.println(frecuencia_respiratoria);
+  glucosa = random(70, 100);
+  //Serial.println(frecuencia_respiratoria);
   if (receive_data!=0){
     frecuencia_respiratoria = random(16, 20);
     switch (receive_data) {
@@ -102,7 +103,7 @@ void requestEvent() {
         receive_data=0;
         break;
       case 3:
-        glucosa = random(70, 100);
+        Serial.println("glucosa");
         Serial.println(glucosa);
         dato = String(glucosa);
         receive_data=0;
