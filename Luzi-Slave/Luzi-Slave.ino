@@ -45,6 +45,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
+        dato.toInt();
         dato=0;
         break;
       case 2:
@@ -60,6 +61,7 @@ void loop(){
         Serial.println("hola");
         Serial.println(dato);
         z=0;
+        dato.toInt();
         receive_data=0;
         dato-0;
         break;
