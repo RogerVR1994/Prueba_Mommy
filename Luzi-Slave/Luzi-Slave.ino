@@ -82,7 +82,6 @@ void loop(){
         Serial.println("En espera");
     }
   }
-  dato="";
 }
 
 void requestEvent() {
@@ -91,6 +90,7 @@ void requestEvent() {
   Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
+  dato=0;
 }
 
 void receiveEvent(int howmany){
