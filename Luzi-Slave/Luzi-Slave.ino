@@ -12,7 +12,6 @@ Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
 int z;
 int map_pulso;
 String dato;
-int size_i2c;
 
 
 void setup(){
@@ -73,7 +72,7 @@ void loop(){
 }
 
 void requestEvent() {
-  if (receive_data==2 || receive_data==20){
+  if (receive_data==2){
     Serial.println("Boton 2");
     Serial.println("Tomar presion arterial");
         for (int i = 0 ; i<10; i++){
@@ -87,23 +86,14 @@ void requestEvent() {
         Serial.println("hola");
         Serial.println(dato);
         z=0;
-        size_i2c=sizeof(dato);
-        Serial.println(size_i2c);
+        
         receive_data=0;
   }
-  char size[1];
-  char data[size_i2c];
-  
-  dato.toCharArray(data, size_i2c);
+  char data[6];
+  dato.toCharArray(data, 6);
   Serial.println(data);
-  //Wire.write(data); // respond with message of 6 bytes
+  Wire.write(data); // respond with message of 6 bytes
   // as expected by master
-  if (receive_data==2){
-    Wire.write(data);
-  }
-  else if(receive_data==20){
-    Wire.write(size_i2c);
-  }
   dato="";
 }
 
