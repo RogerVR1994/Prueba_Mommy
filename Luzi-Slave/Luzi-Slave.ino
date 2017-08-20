@@ -70,7 +70,11 @@ void loop(){
       default:
         Serial.println("En espera");
     }
-    sendMsg();
+    delay(1000);
+    for (int status=0; status<2; status++){
+      sendMsg();
+      delay(1000);
+    }
   }
 }
 
@@ -158,8 +162,8 @@ void sessionsInit() {
   //Activar conexion 3G
   sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
   sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
-  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
-  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100);
+  sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
+  //sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100);
   sendATCommand("AT+QIACT=1", 100);
 }
 
