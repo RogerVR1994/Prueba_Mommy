@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h> // Librería para comunicación con UC20
+#include <Wire.h> //Librer[ia para comunicaci[on de I2C]
 
 SoftwareSerial Uc20(2, 3);
 
