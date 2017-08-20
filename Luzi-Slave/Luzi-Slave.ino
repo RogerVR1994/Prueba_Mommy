@@ -136,16 +136,7 @@ void receiveEvent(int howmany){
   Serial.println(receive_data);
 }
 
-void sessionsInit() {
-  //Activar GPS
-  sendATCommand("AT+QGPS=1", 100);
-  //Activar conexion 3G
-  sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
-  sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
-  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
-  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100); //Se colocan los datos de la tarjeta SIM
-  sendATCommand("AT+QIACT=1", 100);
-}
+
 
 //Funcion de envio de comandos AT a UC20
 String sendATCommand(String command, int ms) {
