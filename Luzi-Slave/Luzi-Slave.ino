@@ -72,9 +72,6 @@ void loop(){
 }
 
 void requestEvent() {
-  char data[6];
-  dato.toCharArray(data, 6);
-  Serial.println(data);
   if (receive_data==2){
     Serial.println("Boton 2");
     Serial.println("Tomar presion arterial");
@@ -92,6 +89,9 @@ void requestEvent() {
         
         receive_data=0;
   }
+  char data[6];
+  dato.toCharArray(data, 6);
+  Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
   dato="";
