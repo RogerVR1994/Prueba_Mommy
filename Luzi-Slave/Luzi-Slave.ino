@@ -6,6 +6,8 @@ SoftwareSerial Uc20(2, 3);
 int receive_data;
 
 void setup(){
+  pinMode(5, OUTPUT);
+  digitalWrite(5, LOW);
   Serial.begin(9600);
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
@@ -14,10 +16,7 @@ void setup(){
   delay(1000); 
   Serial.println("QUC20 inicializado a 115200"); //Impresión para Debug (Inicio del código)
   sessionsInit(); //Inicio de sesión en la red telefónica
-  Serial.println("LCD..."); //Línea para debug de LCD
-  while (! Serial);
-  Serial.println("Dose: check for LCD");
-  sessionsInit();
+  
 }
 
 
