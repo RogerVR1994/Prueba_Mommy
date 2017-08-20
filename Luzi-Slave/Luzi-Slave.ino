@@ -95,7 +95,7 @@ void requestEvent() {
         //Serial.println("hola");
         //Serial.println(dato);
         z=0;
-        
+        Serial.println("frecuencia");
         Serial.println(frecuencia_respiratoria);
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
