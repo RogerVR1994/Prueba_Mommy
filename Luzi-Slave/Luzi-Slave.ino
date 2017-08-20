@@ -100,6 +100,7 @@ void requestEvent() {
         break;
       case 3:
         glucosa = random(70, 100);
+        Serial.println(glucosa);
         dato = String(glucosa);
         receive_data=0;
         break;
