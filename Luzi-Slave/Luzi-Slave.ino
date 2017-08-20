@@ -136,7 +136,16 @@ void receiveEvent(int howmany){
   Serial.println(receive_data);
 }
 
-
+void sessionsInit() {
+  //Activar GPS
+  sendATCommand("AT+QGPS=1", 100);
+  //Activar conexion 3G
+  sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
+  sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
+  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
+  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100); //Se colocan los datos de la tarjeta SIM
+  sendATCommand("AT+QIACT=1", 100);
+}
 
 //Funcion de envio de comandos AT a UC20
 String sendATCommand(String command, int ms) {
@@ -255,159 +264,4 @@ void sendATCommandWithResponse(String command, String response) {
   delay(500);
 }
 
-void sessionsInit() {
-  //Activar GPS
-  sendATCommand("AT+QGPS=1", 100);
-  //Activar conexion 3G
-  sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
-  sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
-  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
-  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100);
-  sendATCommand("AT+QIACT=1", 100);
-}
 
-
-void sessionsClose() {
-  sendATCommand("AT+QGPSEND", 100); //Termina sesion de GPS
-  sendATCommand("AT+QIDEACT=1", 100); //Termina sesion de 3G
-  delay(1000);
-}
-
-void restartUC() {
-  sessionsClose();
-  sendATCommand("AT+QGPSEND", 100);
-  sendATCommand("AT+QIDEACT=1", 100);
-  delay(1000);
-}
-
-void powerOff() {
-  sessionsClose();
-  sendATCommand("AT+QPOWD", 300);
-}
-
-
-//Funcion de envio de comandos AT
-String sendATCommand(String command, int ms) {
-  char c;
-  String res;
-  Uc20.println(command);     
-  int count = 5;                      
-  // assuming there is no more data
-  while (count-- != 0) {               
-
-    delay(100);                       
-
-    while (Uc20.available() > 0) { 
-      c = (char)Uc20.read();     
-      res += c;
-      count = 5;
-    }
-  }
-  Serial.println(res);
-  return res;
-}
-
-
-//Limpia una respuesta de un comando para dejar solo la respuesta
-String getBodyResponse(String msg) {
-  int startW = 0, endsW = 0;
-  String bodyRes;
-
-  startW = msg.indexOf('\n');
-  endsW = msg.indexOf('\n', startW + 1);
-  return msg.substring(startW + 1, endsW);
-}
-
-//Limpia una respuesta de un comando para dejar solo la respuesta
-//Esta sobrecarga permite lidiar con las diferencias entre comandos
-//de GPS y de Datos 3G
-String getBodyResponse(String msg, int mode) {
-  int startW = 0, endsW = 0;
-  String bodyRes;
-
-  startW = msg.indexOf('\n');
-  //Serial.println(startW);
-  if (mode == 1) {
-    endsW = msg.indexOf('\n', startW + 2);
-  } else {
-    endsW = msg.indexOf('\n', startW + 1);
-  }
-  //Serial.println(endsW);
-  return msg.substring(startW + 1, endsW);
-}
-
-//funcion para quitar la cabecera de una respuesta a un comando
-String getDataResponse(String data) {
-  int ndx = 0;
-  ndx = data.indexOf(':');
-  data.trim();
-  return data.substring(ndx + 1);
-}
-
-//Limpia una respuesta de un comando para dejar solo la respuesta
-//Esta sobrecarga permite lidiar con los formatos de respuestas 
-//a comandos que necesitaban argumentos
-String getBodyReadResponse(String msg) {
-  int startW = 0, endsW = 0, fLn = 0;
-  String bodyRes;
-
-  fLn = msg.indexOf('\n');
-  startW = msg.indexOf('\n', fLn + 1);
-  endsW = msg.indexOf('\n', startW + 1);
-  return msg.substring(startW + 1, endsW);
-}
-
-//Funcion para obtener un campo en particular de una cadena csv
-String parseCSV(String csv, int field) {
-  String sField;
-  int fCom, sCom;
-  for (int i = 0; i < field; i++) {
-    fCom = csv.indexOf(',');
-    sCom = csv.indexOf(',', fCom + 1);
-    sField = csv.substring(fCom + 1, sCom);
-    csv.remove(fCom, sField.length());
-  }
-  return sField;
-}
-
-//Funcion de envio de datos a traves de 3G
-void sendMsg() {
-  String act;
-  String res, atcomm;
-  res = "temperatura=36.9&presion_dis=0&presion_sis=0&pulso=71";
-  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
-  delay(30);
-  sendATCommand("AT+QIGETERROR", 100);
-  atcomm = "AT+QHTTPPOST=";
-  atcomm += res.length();
-  atcomm += ",80,80";
-  Serial.println(atcomm);
-  sendATCommandWithResponse(atcomm, res);
-  delay(30);
-  sendATCommand("AT+QIGETERROR", 100);
-  delay(20);
-  Serial.println(sendATCommand("AT+QHTTPREAD=80", 100));
-  delay(30);
-  sendATCommand("AT+QHTTPREAD=30",100);
-  delay(30);
-}
-
-//Funcion para enviar comandos que necesiten argumentos una vez que son enviados
-void sendATCommandWithResponse(String command, String response) {
-  char incoming_char;
-  Uc20.println(command);
-  delay(500);
-  Serial.println(Uc20.available());
-  while (Uc20.available() > 0) {
-    incoming_char = Uc20.read();
-    Serial.print(incoming_char);
-  }
-  Uc20.println(response);
-  delay(300);
-  Serial.println(Uc20.available());
-  while (Uc20.available() > 0) {
-    incoming_char = Uc20.read();
-    Serial.print(incoming_char);
-  }
-  delay(500);
-}
