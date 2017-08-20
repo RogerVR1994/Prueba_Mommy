@@ -64,6 +64,8 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
+        post_message="frecuencia_respiratoria=";
+        post_message += frecuencia_respiratoria;
         for (int conexion_status =0; conexion_status<2; conexion_status++){
           sendMsg();
         }
@@ -74,7 +76,7 @@ void loop(){
     delay(1000);
     for (int status=0; status<2; status++){
 
-      sendMsg();
+      sendMsg(post_message);
       delay(1000);
     }
     post_message="";
@@ -101,6 +103,8 @@ void requestEvent() {
         Serial.println(frecuencia_respiratoria);
         dato+=" ";
         dato+=String(frecuencia_respiratoria);
+        post_message="frecuencia_respiratoria=";
+        post_message += frecuencia_respiratoria;
         sendMsg();
         receive_data=0;
         break;
@@ -110,7 +114,8 @@ void requestEvent() {
         Serial.println(glucosa);
         dato = String(glucosa);
         sendMsg();
-        dato +="hola";
+        post_message="glucosa=";
+        post_message+=glucosa;
         Serial.println(dato);
         receive_data=0;
         break;
@@ -125,6 +130,9 @@ void requestEvent() {
         dato += "/";
         dato += String(presion_dis);
         Serial.println(sizeof(dato));
+        post_message="frecuencia_respiratoria=";
+        post_message += frecuencia_respiratoria;
+
         sendMsg();
         receive_data=0;
         break;
@@ -132,12 +140,16 @@ void requestEvent() {
         contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
+        post_message="frecuencia_respiratoria=";
+        post_message += frecuencia_respiratoria;
         sendMsg();
         break;
       case 6:
         frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
+        post_message="frecuencia_respiratoria=";
+        post_message += frecuencia_respiratoria;
         sendMsg();
         break;
       default:
@@ -277,7 +289,7 @@ String parseCSV(String csv, int field) {
 }
 
 //Funcion de envio de datos a traves de 3G
-void sendMsg() {
+void sendMsg(String mensaje) {
   String act;
   String res, atcomm;
   res = "temperatura=36.9&presion_dis=0&presion_sis=0&pulso=71";
@@ -285,10 +297,10 @@ void sendMsg() {
   delay(30);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
-  atcomm += res.length();
+  atcomm += mensaje.length();
   atcomm += ",80,80";
   Serial.println(atcomm);
-  sendATCommandWithResponse(atcomm, res);
+  sendATCommandWithResponse(atcomm, mensaje);
   delay(30);
   sendATCommand("AT+QIGETERROR", 100);
   delay(20);
