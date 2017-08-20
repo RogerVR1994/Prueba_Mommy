@@ -15,7 +15,7 @@ char stLast[20]="";
 
 /////////VARIABLES GLOBALES////////
 char boton;
-byte x=0;
+byte xbyte=0;
 
 void drawButtons()
 {
@@ -258,11 +258,10 @@ void loop()
 
             case 'A': //Boton 1
             delay(500);
+            xbyte=1;
             Wire.beginTransmission(8);
-            Wire.write("x is: ");
-            Wire.write(x);
+            Wire.write(xbyte);
             Wire.ednTransission();
-            x++;
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
