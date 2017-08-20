@@ -94,7 +94,7 @@ void requestEvent() {
         dato = String(presion_sis);
         dato += "/";
         dato += String(presion_dis);
-        Serial.println(sizeof(dato);
+        Serial.println(sizeof(dato));
         receive_data=0;
         break;
       case 5:
