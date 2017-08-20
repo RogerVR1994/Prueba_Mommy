@@ -77,7 +77,7 @@ void requestEvent() {
         frecuencia_respiratoria=random(16, 20);
         Serial.print("frecuencia");
         Serial.println(frecuencia_respiratoria);
-        dato+="  ";
+        dato+=" ";
         dato+=String(frecuencia_respiratoria);
         receive_data=0;
         break;
@@ -94,6 +94,7 @@ void requestEvent() {
         dato = String(presion_sis);
         dato += "/";
         dato += String(presion_dis);
+        Serial.println(sizeof(dato);
         receive_data=0;
         break;
       case 5:
