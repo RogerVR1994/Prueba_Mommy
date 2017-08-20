@@ -91,6 +91,10 @@ void requestEvent() {
       case 4:
         presion_dis = random(60, 80);
         presion_sis = random(100, 120);
+        Serial.println("presion sistolica");
+        Serial.println(presion_sis);
+        Serial.println("presion distolica");
+        Serial.println(presion_dis);
         dato = String(presion_sis);
         dato += "/";
         dato += String(presion_dis);
