@@ -43,6 +43,8 @@ void setup(){
 
 void loop(){
   delay(100);
+  frecuencia_respiratoria = random(16, 20);
+  Serial.println(frecuencia_respiratoria);
   if (receive_data!=0){
     frecuencia_respiratoria = random(16, 20);
     switch (receive_data) {
