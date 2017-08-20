@@ -11,6 +11,12 @@ int pulso;
 Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
 int z;
 int map_pulso;
+int frecuencia_respiratoria;
+int glucosa;
+int presion_sis;
+int presion_dis;
+int contracciones;
+int frecuencia_fetal;
 String dato;
 
 
@@ -72,12 +78,7 @@ void loop(){
 }
 
 void requestEvent() {
-  int frecuencia_respiratoria;
-  int glucosa;
-  int presion_sis;
-  int presion_dis;
-  int contracciones;
-  int frecuencia_fetal;
+  
   switch (receive_data) {
       case 2:
         for (int i = 0 ; i<10; i++){
@@ -91,7 +92,8 @@ void requestEvent() {
         //Serial.println("hola");
         //Serial.println(dato);
         z=0;
-        recuencia_respiratoria = random(16, 20);
+        frecuencia_respiratoria = random(16, 20);
+        Serial.println(frecuencia_respiratoria);
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
         receive_data=0;
@@ -109,18 +111,18 @@ void requestEvent() {
         dato += String(presion_dis);
         receive_data=0;
         break;
-      break 5:
+      case 5:
         contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
         break;
-      break 6:
+      case 6:
         frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
         break;
       default:
-        // do something
+        Serial.println("algo");// do something
   }
   char data[6];
   dato.toCharArray(data, 6);
