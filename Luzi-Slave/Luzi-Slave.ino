@@ -22,7 +22,7 @@ void setup(){
   Serial.begin(9600);
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
-  //Wire.onRequest(requestEvent); // register event
+  Wire.onRequest(requestEvent); // register event
   sendATCommand("AT+IPR=9600", 100);
   Uc20.begin(9600);
   delay(1000); 
@@ -45,7 +45,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        Wire.onRequest(requestEvent);
+        dato=0;
         break;
       case 2:
         Serial.println("Tomar presion arterial");
@@ -57,8 +57,11 @@ void loop(){
         pulso = z/10;
         Serial.println(pulso);
         dato=String(pulso);
-        z+0;
+        Serial.println("hola");
+        Serial.println(dato);
+        z=0;
         receive_data=0;
+        dato-0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
@@ -85,6 +88,7 @@ void loop(){
 void requestEvent() {
   char data[4];
   dato.toCharArray(data, 6);
+  Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
 }
