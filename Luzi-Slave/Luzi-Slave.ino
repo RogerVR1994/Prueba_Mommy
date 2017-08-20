@@ -56,25 +56,6 @@ void loop(){
         receive_data=0;
         dato= String(real_temp);
         break;
-      case 2:
-        
-        break;
-      case 3:
-        Serial.println("Tomar glucosa");
-        receive_data=0;
-        break;
-      case 4:
-        Serial.println("Tomar presi[on arterial");
-        receive_data=0;
-        break;
-      case 5:
-        Serial.println("Tomar frecuencia cardiaca");
-        receive_data=0;
-        break;
-      case 6:
-        Serial.println("Tomar cardaica fetal");
-        receive_data=0;
-        break;
       default:
         Serial.println("En espera");
     }
