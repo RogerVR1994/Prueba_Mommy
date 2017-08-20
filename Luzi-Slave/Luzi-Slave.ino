@@ -56,6 +56,7 @@ void loop(){
         }
         pulso = z/10;
         Serial.println(pulso);
+        dato=String(pulso);
         z+0;
         receive_data=0;
         break;
@@ -83,8 +84,8 @@ void loop(){
 
 void requestEvent() {
   char data[4];
-  dato.toCharArray(data, 4)
-  Wire.write(hola.toCharArray(data, 4)); // respond with message of 6 bytes
+  dato.toCharArray(data, 4);
+  Wire.write(data); // respond with message of 6 bytes
   // as expected by master
 }
 
