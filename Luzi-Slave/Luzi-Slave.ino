@@ -4,6 +4,10 @@
 SoftwareSerial Uc20(2, 3);
 
 int receive_data;
+float real_temp;
+int pulso;
+Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
+
 
 void setup(){
   pinMode(5, OUTPUT);
@@ -16,33 +20,46 @@ void setup(){
   delay(1000); 
   Serial.println("QUC20 inicializado a 115200"); //Impresión para Debug (Inicio del código)
   sessionsInit(); //Inicio de sesión en la red telefónica
+  Wire.beginTransmission(0x27); //iniciar comunicación con pantalla LCD
+  error = Wire.endTransmission(); //Terminar comunicación con LCD si no se detecta una pantalla
+
   
 }
 
 
 void loop(){
   delay(100);
-  switch (receive_data) {
+  if (receive_data!=0){
+    switch (receive_data) {
       case 1:
         Serial.println("Tomar temperatura");
+        real_temp = tmp007.readObjTempC();//Se hace la medición de la temperatura
+        Serial.println(real_temp);
+        receive_data=0;
         break;
       case 2:
         Serial.println("Tomar presion arterial");
+        receive_data=0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
+        receive_data=0;
         break;
       case 4:
         Serial.println("Tomar frecuencia respiratoria");
+        receive_data=0;
         break;
       case 5:
         Serial.println("Tomar frecuencia cardiaca");
+        receive_data=0;
         break;
       case 6:
         Serial.println("Tomar cardaica fetal");
+        receive_data=0;
         break;
       default:
         Serial.println("En espera");
+    }
   }
 }
 
