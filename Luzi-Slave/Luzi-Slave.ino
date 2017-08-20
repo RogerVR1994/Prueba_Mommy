@@ -38,7 +38,12 @@ void setup(){
 void loop(){
   delay(100);
   if (receive_data!=0){
-    switch (receive_data) {
+    
+  }
+}
+
+void requestEvent() {
+  switch (receive_data) {
       case 1:
         Serial.println("Tomar temperatura");
         real_temp = tmp007.readObjTempC();//Se hace la medición de la temperatura
@@ -82,16 +87,12 @@ void loop(){
       default:
         Serial.println("En espera");
     }
-  }
-}
-
-void requestEvent() {
   char data[4];
   dato.toCharArray(data, 6);
   Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
-  data[0]=(char)0; 
+  char data[4]; 
 }
 
 void receiveEvent(int howmany){
