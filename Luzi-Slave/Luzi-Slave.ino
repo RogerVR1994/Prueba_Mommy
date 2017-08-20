@@ -85,12 +85,12 @@ void loop(){
 }
 
 void requestEvent() {
-  char data[4];
+  char data[6];
   dato.toCharArray(data, 6);
   Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
-  dato=0;
+  dato="";
 }
 
 void receiveEvent(int howmany){
