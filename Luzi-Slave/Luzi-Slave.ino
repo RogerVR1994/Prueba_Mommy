@@ -13,7 +13,8 @@ int z;
 int map_pulso;
 String dato;
 int frecuencia_respiratoria;
-
+int glucosa;
+char data[];
 
 void setup(){
   int error;
@@ -90,7 +91,7 @@ void requestEvent() {
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
         receive_data=0;
-        char data[3];
+        data[3];
         dato.toCharArray(data, 3);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
@@ -98,10 +99,10 @@ void requestEvent() {
         dato="";
         break;
       case 3:
-        int glucosa = random(70, 100);
+        glucosa = random(70, 100);
         dato = String(glucosa);
         receive_data=0;
-        char data[2];
+        data[2];
         dato.toCharArray(data, 2);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
@@ -115,7 +116,7 @@ void requestEvent() {
         dato += "/";
         dato += String(presion_dis);
         receive_data=0;
-        char data[6];
+        data[6];
         dato.toCharArray(data, 6);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
@@ -126,7 +127,7 @@ void requestEvent() {
         int contracciones = random(1, 2);
         dato = String(contracciones);
         receive_data=0;
-        char data[1];
+        data[1];
         dato.toCharArray(data, 1);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
@@ -137,7 +138,7 @@ void requestEvent() {
         int frecuencia_fetal = random(160, 170);
         dato = String(frecuencia_fetal);
         receive_data=0;
-        char data[3];
+        data[3];
         dato.toCharArray(data, 3);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
@@ -145,7 +146,7 @@ void requestEvent() {
         dato="";
         break;
       default:
-        char data[6];
+        data[6];
         dato.toCharArray(data, 6);
         Serial.println(data);
         Wire.write(data); // respond with message of 6 bytes
