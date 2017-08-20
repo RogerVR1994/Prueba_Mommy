@@ -22,7 +22,7 @@ void setup(){
   Serial.begin(9600);
   Wire.begin(8);
   Wire.onReceive(receiveEvent);
-  Wire.onRequest(requestEvent); // register event
+  //Wire.onRequest(requestEvent); // register event
   sendATCommand("AT+IPR=9600", 100);
   Uc20.begin(9600);
   delay(1000); 
@@ -45,7 +45,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         real_temp_def= String(real_temp);
-        requestEvent();
+        Wire.send(real_temp);
         break;
       case 2:
         Serial.println("Tomar presion arterial");
