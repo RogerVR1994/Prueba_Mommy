@@ -80,8 +80,8 @@ void loop(){
   }
 }
 
-void requestEvent(String dato) {
-  Wire.write(dato); // respond with message of 6 bytes
+void requestEvent() {
+  Wire.write(real_temp_def); // respond with message of 6 bytes
   // as expected by master
 }
 
