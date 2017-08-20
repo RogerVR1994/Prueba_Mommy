@@ -72,7 +72,7 @@ void loop(){
 }
 
 void requestEvent() {
-  switch () {
+  switch (receive_data) {
       case 2:
         /for (int i = 0 ; i<10; i++){
           map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
