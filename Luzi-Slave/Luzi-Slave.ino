@@ -44,6 +44,7 @@ void setup(){
 void loop(){
   delay(100);
   if (receive_data!=0){
+    frecuencia_respiratoria = random(16, 20);
     switch (receive_data) {
       case 1:
         Serial.println("Tomar temperatura");
@@ -92,7 +93,7 @@ void requestEvent() {
         //Serial.println("hola");
         //Serial.println(dato);
         z=0;
-        frecuencia_respiratoria = random(16, 20);
+        
         Serial.println(frecuencia_respiratoria);
         dato+="  ";
         dato+=String(frecuencia_respiratoria);
