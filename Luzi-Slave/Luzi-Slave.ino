@@ -11,7 +11,8 @@ int pulso;
 Adafruit_TMP007 tmp007; //Generación de objeto de sensor de temperatuar
 int z;
 int map_pulso;
-String real_temp_def;
+String dato;
+
 
 
 void setup(){
@@ -44,7 +45,7 @@ void loop(){
         real_temp = tmp007.readObjTempC();//Se hace la medición de la temperatura
         Serial.println(real_temp);
         receive_data=0;
-        real_temp_def= String(real_temp);
+        dato= String(real_temp);
         Wire.onRequest(requestEvent);
         break;
       case 2:
@@ -82,7 +83,7 @@ void loop(){
 }
 
 void requestEvent() {
-  Wire.write("hola "); // respond with message of 6 bytes
+  Wire.write(dato); // respond with message of 6 bytes
   // as expected by master
 }
 
