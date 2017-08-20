@@ -189,21 +189,21 @@ void loop()
         if ((x>=70) && (x<=120))  // Button: 1
         {
           waitForIt(70,20,120,70);
-          updateStr('Pulso');
+          updateStr('1');
           boton= 'A'; 
         }
 
          if ((x>=130) && (x<=180))  // Button: 2
         {
           waitForIt(130,20, 180, 70);
-          updateStr('Temperatura');
+          updateStr('2');
           boton= 'B';
         }
 
          if ((x>=190) && (x<=240))  // Button: 3
         {
           waitForIt(190,20, 240, 70);
-          updateStr('Presion');
+          updateStr('3');
           boton= 'C';
         }
       }
@@ -275,6 +275,10 @@ void loop()
 
             case 'B': //Boton 2
             delay(500);
+            xbyte=2;
+            Wire.beginTransmission(8);
+            Wire.write(xbyte);
+            Wire.ednTransission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -288,6 +292,10 @@ void loop()
 
             case 'C': //Boton 3
             delay(500);
+            xbyte=3;
+            Wire.beginTransmission(8);
+            Wire.write(xbyte);
+            Wire.ednTransission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -301,6 +309,10 @@ void loop()
 
             case 'D': //Boton 4
             delay(500);
+            xbyte=4;
+            Wire.beginTransmission(8);
+            Wire.write(xbyte);
+            Wire.ednTransission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -314,6 +326,10 @@ void loop()
 
             case 'E': //Boton 5
             delay(500);
+            xbyte=5;
+            Wire.beginTransmission(8);
+            Wire.write(xbyte);
+            Wire.ednTransission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
@@ -327,6 +343,10 @@ void loop()
 
             case 'F': //Boton 6
             delay(500);
+            xbyte=6;
+            Wire.beginTransmission(8);
+            Wire.write(xbyte);
+            Wire.ednTransission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);

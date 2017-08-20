@@ -22,13 +22,27 @@ void setup(){
 
 void loop(){
   delay(100);
-  if (receive_data==1){
-    Serial.println("exito!");
-    receive_data=0;
-    for (int count = 0; count<2; count++){
-      //sendMsg();
-      Serial.println("Enviar Pulso");
-    }
+  switch (receive_data) {
+      case 1:
+        Serial.println("Tomar temperatura");
+        break;
+      case 2:
+        Serial.println("Tomar presion arterial");
+        break;
+      case 3:
+        Serial.println("Tomar glucosa");
+        break;
+      case 4:
+        Serial.println("Tomar frecuencia respiratoria");
+        break;
+      case 5:
+        Serial.println("Tomar frecuencia cardiaca");
+        break;
+      case 6:
+        Serial.println("Tomar cardaica fetal");
+        break;
+      default:
+        Serial.println("En espera");
   }
 }
 
