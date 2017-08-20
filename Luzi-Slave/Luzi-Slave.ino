@@ -91,7 +91,7 @@ void requestEvent() {
   Serial.println(data);
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
-  data=""; 
+  data[0]=(char)0; 
 }
 
 void receiveEvent(int howmany){
