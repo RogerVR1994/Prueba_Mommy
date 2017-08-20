@@ -37,9 +37,6 @@ void setup(){
 
 void loop(){
   delay(100);
-}
-
-void requestEvent() {
   if (receive_data!=0){
     switch (receive_data) {
       case 1:
@@ -86,12 +83,14 @@ void requestEvent() {
         Serial.println("En espera");
     }
   }
+}
+
+void requestEvent() {
   char data[4];
   dato.toCharArray(data, 6);
   Serial.println(data);
-  Wire.write(data); // respond with message of 6 bytes
-  // // as expected by master
-
+  Wire.write(dato); // respond with message of 6 bytes
+  // as expected by master
 }
 
 void receiveEvent(int howmany){
