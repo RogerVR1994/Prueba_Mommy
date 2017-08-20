@@ -52,6 +52,7 @@ void loop(){
         }
         pulso = z/10;
         Serial.println(pulso);
+        z+0;
         receive_data=0;
         break;
       case 3:

@@ -15,6 +15,10 @@ void receiveEvent(int howMany) {
     char c = Wire.read(); 
     Serial.print(c);        
   }
-  int x = Wire.read();    
+  int x = Wire.read(); 
+  int y=1;   
   Serial.println(x);         
+  Wire.beginTransmission(0);    
+  Wire.write(y);             
+  Wire.endTransmission();   
 }
