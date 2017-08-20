@@ -52,6 +52,7 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
+        sendMsg();
         break;
       default:
         Serial.println("En espera");
