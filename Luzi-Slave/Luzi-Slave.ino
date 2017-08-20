@@ -26,7 +26,8 @@ void loop(){
     Serial.println("exito!");
     receive_data=0;
     for (int count = 0; count<2; count++){
-      sendMsg();
+      //sendMsg();
+      Serial.println("Enviar Pulso");
     }
   }
 }
