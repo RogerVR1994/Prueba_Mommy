@@ -47,21 +47,20 @@ void loop(){
         dato= String(real_temp);
         break;
       case 2:
-        for(int cont_i2c = 0; cont_i2c<2; cont++){
-          Serial.println("Tomar presion arterial");
-          for (int i = 0 ; i<10; i++){
-            map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
-            z+=map_pulso;
-            delay(100);
-          }
-          pulso = z/10;
-          Serial.println(pulso);
-          dato=String(pulso);
-          Serial.println("hola");
-          Serial.println(dato);
-          z=0;
+        Serial.println("Tomar presion arterial");
+        for (int i = 0 ; i<10; i++){
+          map_pulso=map(analogRead(A2), 0, 1024, 100, 50);
+          z+=map_pulso;
+          delay(100);
         }
-          receive_data=0;
+        pulso = z/10;
+        Serial.println(pulso);
+        dato=String(pulso);
+        Serial.println("hola");
+        Serial.println(dato);
+        z=0;
+        
+        receive_data=0;
         break;
       case 3:
         Serial.println("Tomar glucosa");
@@ -89,6 +88,9 @@ void requestEvent() {
   char data[6];
   dato.toCharArray(data, 6);
   Serial.println(data);
+  if (receive_data==2){
+    Serial.println("Boton 2");
+  }
   Wire.write(data); // respond with message of 6 bytes
   // as expected by master
   dato="";
