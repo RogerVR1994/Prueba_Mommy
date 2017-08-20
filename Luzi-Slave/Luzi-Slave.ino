@@ -52,7 +52,9 @@ void loop(){
         Serial.println(real_temp);
         receive_data=0;
         dato= String(real_temp);
-        sendMsg();
+        for (int conexion_status =0; conexion_status<2; conexion_status++){
+          sendMsg();
+        }
         break;
       default:
         Serial.println("En espera");
@@ -143,8 +145,8 @@ void sessionsInit() {
   //Activar conexion 3G
   sendATCommand("AT+QHTTPCFG=\"contextid\",1", 100);
   sendATCommand("AT+QHTTPCFG=\"responseheader\",1", 100);
-  //sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
-  sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100); //Se colocan los datos de la tarjeta SIM
+  sendATCommand("AT+QICSGP=1,1,\"internet.itelcel.com\",\"webgprs\",\"webgprs2002\",1", 100);
+  //sendATCommand("AT+QICSGP=1,1,\"internet.movistar.mx\",\"movistar\",\"movistar\",1", 100); //Se colocan los datos de la tarjeta SIM
   sendATCommand("AT+QIACT=1", 100);
 }
 
@@ -228,7 +230,7 @@ void sendMsg() {
   res += "&presion_dis=70&presion_sis=120&pulso=";
   res+="70.0";
   Serial.println(res); //imprimir en serial el valor de la cadena a enviar (Comentar esta cadena cuando ya no se necesita hacer debug)
-  sendATCommandWithResponse("AT+QHTTPURL=48,48", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
+  sendATCommandWithResponse("AT+QHTTPURL=79,79", "http://52.161.31.218/Mommy_Care/PHP/add_data.php");
   delay(300);
   sendATCommand("AT+QIGETERROR", 100);
   atcomm = "AT+QHTTPPOST=";
