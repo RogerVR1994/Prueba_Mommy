@@ -283,7 +283,7 @@ void loop()
 
             case 'B': //Boton 2
             delay(500);
-            xbyte=10;
+            xbyte=2;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
             Wire.endTransmission();
@@ -292,18 +292,7 @@ void loop()
             myGLCD.fillRoundRect(80, 70, 239, 169);
             myGLCD.setColor(255, 255, 255);
             myGLCD.setBackColor(255, 0, 0);
-            Wire.requestFrom(8, 1);
-            dato ="";
-            while (Wire.available()) { // slave may send less than requested
-              char c = Wire.read(); // receive a byte as character
-              Serial.print(c);         // print the character
-              dato +=c;
-            }
-            xbyte=2;
-            Wire.beginTransmission(8);
-            Wire.write(xbyte);
-            Wire.endTransmission();
-            Wire.requestFrom(8, dato.toInt());
+            Wire.requestFrom(8, 6);
             dato ="";
             while (Wire.available()) { // slave may send less than requested
               char c = Wire.read(); // receive a byte as character
@@ -372,7 +361,7 @@ void loop()
             xbyte=6;
             Wire.beginTransmission(8);
             Wire.write(xbyte);
-            Wire.endTransmission();
+            Wire.ednTransmission();
             myGLCD.fillScr(0, 0, 255);
             myGLCD.setColor(255, 0, 0);
             myGLCD.fillRoundRect(80, 70, 239, 169);
