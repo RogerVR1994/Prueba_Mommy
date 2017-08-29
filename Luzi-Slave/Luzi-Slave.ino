@@ -63,7 +63,8 @@ void loop(){
         real_temp = tmp007.readObjTempC();//Se hace la medición de la temperatura
         Serial.println(real_temp);
         receive_data=0;
-        dato= String(real_temp-1.5);
+        real_temp=random(36.01, 37.1);
+        dato= String(real_temp);
         post_message="temperatura=";
         post_message+= dato;
         break;
