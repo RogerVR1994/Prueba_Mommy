@@ -90,7 +90,7 @@ void requestEvent() {
           z+=map_pulso;
           delay(100);
         }
-        pulso = z/10;
+        pulso = (z/10)-17;
         //Serial.println(pulso);
         dato=String(pulso);
         //Serial.println("hola");
