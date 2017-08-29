@@ -65,7 +65,7 @@ void loop(){
         receive_data=0;
         dato= String(real_temp-1.5);
         post_message="temperatura=";
-        post_message+= real_temp;
+        post_message+= dato;
         break;
       default:
         Serial.println("En espera");
